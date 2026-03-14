@@ -97,7 +97,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
               className={css.submitButton}
               disabled={isSubmitting || mutation.isPending} 
             >
-              {mutation.isPending ? "Creating..." : "Create Note"} //
+              {mutation.isPending ? "Creating..." : "Create Note"} 
             </button>
           </div>
         </Form>
