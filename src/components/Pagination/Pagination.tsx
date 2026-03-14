@@ -1,8 +1,6 @@
-import ReactPaginate from "react-paginate";
+import { ReactPaginate } from "react-paginate";
 
 import css from "./Pagination.module.css"; 
-
-const PaginateComponent = ReactPaginate.default || ReactPaginate;
 
 interface PaginationProps {
   pageCount: number;
@@ -13,7 +11,7 @@ export function Pagination({ pageCount, onPageChange }: PaginationProps) {
   if (pageCount <= 1) return null;
 
   return (
-    <PaginateComponent
+    <ReactPaginate
       previousLabel="← Попередня"
       nextLabel="Наступна →"
       pageCount={pageCount}
