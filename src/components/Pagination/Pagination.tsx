@@ -1,5 +1,4 @@
-import ReactPaginateModule from 'react-paginate';
-const ReactPaginate = ReactPaginateModule.default;
+import ReactPaginate from "react-paginate";
 
 import css from "./Pagination.module.css"; 
 
