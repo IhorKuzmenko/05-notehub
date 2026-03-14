@@ -1,12 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import css from "./NoteForm.module.css";
 import { createNote } from "../../services/noteService";
 import type { CreateNoteRequest } from "../../types/note";
 
 interface NoteFormProps {
   onClose: () => void;
-  onSuccess: () => void;
 }
 
 const NoteSchema = Yup.object().shape({
@@ -20,21 +21,28 @@ const NoteSchema = Yup.object().shape({
     .required("Tag is required"),
 });
 
-export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
+export default function NoteForm({ onClose }: NoteFormProps) {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (newNote: CreateNoteRequest) => createNote(newNote),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      onClose();
+    },
+    onError: (error) => {
+      console.error("Failed to create note", error);
+    },
+  });
+
   const initialValues: CreateNoteRequest = {
     title: "",
     content: "",
     tag: "Todo",
   };
 
-  const handleSubmit = async (values: CreateNoteRequest) => {
-    try {
-      await createNote(values);
-      onSuccess();
-      onClose();
-    } catch (error) {
-      console.error("Failed to create note", error);
-    }
+  const handleSubmit = (values: CreateNoteRequest) => {
+    mutation.mutate(values);
   };
 
   return (
@@ -80,15 +88,16 @@ export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
               type="button"
               className={css.cancelButton}
               onClick={onClose}
+              disabled={mutation.isPending} 
             >
               Cancel
             </button>
             <button
               type="submit"
               className={css.submitButton}
-              disabled={isSubmitting}
+              disabled={isSubmitting || mutation.isPending} 
             >
-              Create note
+              {mutation.isPending ? "Creating..." : "Create Note"} //
             </button>
           </div>
         </Form>
