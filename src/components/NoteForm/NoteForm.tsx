@@ -93,12 +93,12 @@ export default function NoteForm({ onClose }: NoteFormProps) {
               Cancel
             </button>
             <button
-              type="submit"
-              className={css.submitButton}
-              disabled={isSubmitting || mutation.isPending} 
-            >
-              {mutation.isPending ? "Creating..." : "Create Note"} 
-            </button>
+  type="submit"
+  className={css.submitButton}
+  disabled={isSubmitting || mutation.isPending}
+>
+  {mutation.isPending ? "Creating..." : "Create Note"}
+</button>
           </div>
         </Form>
       )}
