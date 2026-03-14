@@ -34,5 +34,18 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.0"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IhorKuzmenko/05-notehub.git"
+  },
+  "keywords": [],
+  "author": "Ihor Kuzmenko <nameless1306@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IhorKuzmenko/05-notehub/issues"
+  },
+  "homepage": "https://github.com/IhorKuzmenko/05-notehub#readme"
 }
